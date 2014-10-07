@@ -1,0 +1,26 @@
+{
+  "name": "node-s3-upload",
+  "version": "0.0.1",
+  "description": "A very simple static file server.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/spiermar/node-s3-upload.git"
+  },
+  "author": "Sandro Padin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/spiermar/node-s3-upload/issues"
+  },
+  "homepage": "https://github.com/spiermar/node-s3-upload",
+  "dependencies": {
+    "express": "^4.1.2",
+    "body-parser": "^1.1.2",
+    "errorhandler": "^1.0.1",
+    "method-override": "^1.0.0",
+    "aws-sdk": "^2.0.18"
+  }
+}

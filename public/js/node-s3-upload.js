@@ -1,6 +1,6 @@
 $("#actions").hide();
 $("#previews").hide();
-$.getJSON( "/signedurl", function( data ) {
+$.getJSON( "/uploadpolicy", function( data ) {
   // Get the template HTML and remove it from the doument
   var previewNode = document.querySelector("#template");
   previewNode.id = "";
@@ -8,9 +8,11 @@ $.getJSON( "/signedurl", function( data ) {
   previewNode.parentNode.removeChild(previewNode);
 
   var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
-    url: data.url,
-    method: "put",
+    url: "https://handson-upload.s3.amazonaws.com/",
+    method: "post",
     uploadMultiple: false,
+    paramName: "file",
+    maxFiles: 1,
     thumbnailWidth: 80,
     thumbnailHeight: 80,
     parallelUploads: 20,
@@ -33,11 +35,17 @@ $.getJSON( "/signedurl", function( data ) {
     document.querySelector("#total-progress .progress-bar").style.width = progress + "%";
   });
 
-  myDropzone.on("sending", function(file) {
+  myDropzone.on("sending", function(file, xhr, formData) {
     // Show the total progress bar when upload starts
     document.querySelector("#total-progress").style.opacity = "1";
     // And disable the start button
     file.previewElement.querySelector(".start").setAttribute("disabled", "disabled");
+    // And append form data
+    formData.append("key", data.keyname + file.name);
+    formData.append("AWSAccessKeyId", data.awskeyid);
+    formData.append("acl", "private");
+    formData.append("policy", data.policy);
+    formData.append("signature", data.signature);
   });
 
   // Hide the total progress bar when nothing's uploading anymore

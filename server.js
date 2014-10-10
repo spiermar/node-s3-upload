@@ -49,7 +49,7 @@ app.get("/", function (req, res) {
 });
 
 app.get("/uploadpolicy", function (req, res) {
-  res.json(getUploadPolicy(awsbucket, 'inbox/'))
+  res.json(getUploadPolicy(awsbucket, 'upload-'))
 });
 
 app.use(methodOverride());
